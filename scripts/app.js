@@ -120,17 +120,15 @@
     }
 
     function scrollToBottom() {
-        var intervalId = setInterval(function(){
+        if (document.body.clientWidth < 1150) return;
 
-            if (document.body.clientHeight + window.scrollY >= document.body.scrollHeight) {
+        var intervalId = setInterval(function(){
+            setTimeout(function() {
                 clearInterval(intervalId);
-                return;
-            }
+            }, 500);
 
             window.scrollBy(0, 15);
         }, 15);
     }
-
-    window.scrollToBottom = scrollToBottom;
 
 })();
