@@ -1,12 +1,13 @@
-;(function init() {
-    var render    = _.template( document.getElementById('tile-template').innerHTML, { variable: 'data' } );
-    var tiles     = document.querySelector('.tiles');
+;
+(function init() {
+    var render = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
+    var tiles = document.querySelector('.tiles');
     var preloader = document.querySelector('.overlay-loader');
 
     addHandlers();
 
     function addHandlers() {
-        var load   = document.getElementById('load');
+        var load = document.getElementById('load');
         var toggle = document.getElementById('toggle');
         var onWindowScrollThrottled = _.throttle(onWindowScroll, 400, { leading: true });
 
@@ -43,7 +44,7 @@
 
         function onWindowScroll(e) {
             if (!preloader.classList.contains('hidden')) {
-                if ( !isOnScreen(preloader) ) return;
+                if (!isOnScreen(preloader)) return;
 
                 setTimeout(function() {
                     appendTiles();
@@ -71,7 +72,7 @@
             xhr.onloadend = function() {
                 if (xhr.status !== 404) return;
 
-                reject( new Error('404') );
+                reject(new Error('404'));
             };
 
             xhr.send();
@@ -79,43 +80,41 @@
     }
 
     function isOnScreen(elm) {
-    var vpH = viewPortHeight(),
-        st = scrollY(),
-        y = posY(elm);
+        var vpH = viewPortHeight(),
+            st = scrollY(),
+            y = posY(elm);
 
-    return (y < (vpH + st));
+        return (y < (vpH + st));
 
-    function posY(elm) {
-        var test = elm,
-            top = 0;
+        function posY(elm) {
+            var test = elm,
+                top = 0;
 
-        while (!!test && test.tagName.toLowerCase() !== "body") {
-            top += test.offsetTop;
-            test = test.offsetParent;
+            while (!!test && test.tagName.toLowerCase() !== "body") {
+                top += test.offsetTop;
+                test = test.offsetParent;
+            }
+
+            return top;
         }
 
-        return top;
-    }
+        function viewPortHeight() {
+            var de = document.documentElement;
 
-    function viewPortHeight() {
-        var de = document.documentElement;
+            if (!!window.innerWidth) {
+                return window.innerHeight;
+            } else if (de && !isNaN(de.clientHeight)) {
+                return de.clientHeight;
+            }
 
-        if (!!window.innerWidth) {
-            return window.innerHeight;
-        } else if (de && !isNaN(de.clientHeight)) {
-            return de.clientHeight;
+            return 0;
         }
 
-        return 0;
-    }
-
-    function scrollY() {
-        if (window.pageYOffset) {
-            return window.pageYOffset;
+        function scrollY() {
+            if (window.pageYOffset) {
+                return window.pageYOffset;
+            }
+            return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
         }
-        return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     }
-}
-
-
 })();

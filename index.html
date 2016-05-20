@@ -46,9 +46,10 @@
 				</div>
 			</div>
 		</div>
+		<script src="js/main.js"></script>
 		<script type="text/template" id="tile-template">
 			<% _.each(data, function(item) { %>
-				<div class="tiles__tile"><img class="tiles__img" src="<%= item.image %>" alt="">
+				<div class="tiles__tile animated bounceIn"><img class="tiles__img" src="<%= item.image %>" alt="">
 					<div class="tiles__rating"></div>
 					<h1 class="tiles__header"><%= item.title %></h1>
 					<p class="tiles__desc">
