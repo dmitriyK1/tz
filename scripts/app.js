@@ -17,7 +17,8 @@
         window.addEventListener('mousewheel', onWindowScrollThrottled);
 
         function onLoadClick() {
-            appendTiles()
+            appendTiles();
+            scrollToBottom();
         }
 
         function onToggleClick() {
@@ -117,4 +118,19 @@
             return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
         }
     }
+
+    function scrollToBottom() {
+        var intervalId = setInterval(function(){
+
+            if (document.body.clientHeight + window.scrollY >= document.body.scrollHeight) {
+                clearInterval(intervalId);
+                return;
+            }
+
+            window.scrollBy(0, 15);
+        }, 15);
+    }
+
+    window.scrollToBottom = scrollToBottom;
+
 })();
