@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="cleartype" content="on">
+		<title>Template</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+		<link href="css/main.css" rel="stylesheet">
+	</head>
+
+	<body><button id="toggle" class="hvr-shutter-out-horizontal toggle">Toggle infinite scrolling</button>
+		<div class="mainwrap">
+			<div class="content">
+				<div class="tiles">
+					<div class="tiles__tile"><img src="images/1.jpg" alt="" class="tiles__img">
+						<div class="tiles__rating"></div>
+						<h1 class="tiles__header">new zealand timelapse</h1>
+						<p class="tiles__desc">Equipé de son appareil Canon 5D Mark II, le réalis ateur Bevan Percival nous offre une nouvelle vidéo en technique timelapse absolument magnifique</p>
+					</div>
+					<div class="tiles__tile"><img src="images/2.jpg" alt="" class="tiles__img">
+						<div class="tiles__rating"></div>
+						<h1 class="tiles__header">new zealand timelapse</h1>
+						<p class="tiles__desc">Equipé de son appareil Canon 5D Mark II, le réalis ateur Bevan Percival nous offre une nouvelle vidéo en technique timelapse absolument magnifique</p>
+					</div>
+					<div class="tiles__tile"><img src="images/3.jpg" alt="" class="tiles__img">
+						<div class="tiles__rating"></div>
+						<h1 class="tiles__header">new zealand timelapse</h1>
+						<p class="tiles__desc">Equipé de son appareil Canon 5D Mark II, le réalis ateur Bevan Percival nous offre une nouvelle vidéo en technique timelapse absolument magnifique</p>
+					</div>
+				</div><button id="load" class="load">Load more</button>
+				<div class="overlay-loader hidden">
+					<div class="loader">
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/template" id="tile-template">
+			<% _.each(data, function(item) { %>
+				<div class="tiles__tile"><img class="tiles__img" src="<%= item.image %>" alt="">
+					<div class="tiles__rating"></div>
+					<h1 class="tiles__header"><%= item.title %></h1>
+					<p class="tiles__desc">
+						<%= item.paragraph %>
+					</p>
+				</div>
+				<% }) %>
+		</script>
+		<script src="scripts/lodash.custom.min.js"></script>
+		<script src="scripts/app.js"></script>
+	</body>
+
+</html>
