@@ -1,5 +1,4 @@
-;
-(function init() {
+;(function init() {
     var render = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
     var tiles = document.querySelector('.tiles');
     var preloader = document.querySelector('.overlay-loader');
@@ -15,6 +14,7 @@
         toggle.addEventListener('click', onToggleClick);
         window.addEventListener('scroll', onWindowScrollThrottled);
         window.addEventListener('mousewheel', onWindowScrollThrottled);
+        window.addEventListener('DOMMouseScroll', onWindowScrollThrottled);
 
         function onLoadClick() {
             appendTiles();
@@ -26,7 +26,6 @@
             toggle.classList.toggle('active');
             preloader.classList.toggle('hidden');
         }
-
 
         function appendTiles() {
             loadTiles()
