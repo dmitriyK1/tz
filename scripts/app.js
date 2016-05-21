@@ -2,6 +2,8 @@
     var render = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
     var tiles = document.querySelector('.tiles');
     var preloader = document.querySelector('.overlay-loader');
+    var MOBILE_WIDTH = 1150;
+
 
     addHandlers();
 
@@ -43,14 +45,14 @@
         }
 
         function onWindowScroll(e) {
-            if (!preloader.classList.contains('hidden')) {
-                if (!isOnScreen(preloader)) return;
+            if (preloader.classList.contains('hidden')) return;
+            if (!isOnScreen(preloader)) return;
 
-                setTimeout(function() {
-                    appendTiles();
-                }, 200);
-            }
+            setTimeout(function() {
+                appendTiles();
+            }, 200);
         }
+
     }
 
 
@@ -119,23 +121,15 @@
     }
 
     function scrollToBottom() {
-        var id;
+        if (document.body.clientWidth < MOBILE_WIDTH) return;
 
-        if (document.body.clientWidth < 1150) return;
-
-        animate();
+        var intervalId = setInterval(function() {
+            window.scrollBy(0, 15);
+        }, 1000/60);
 
         setTimeout(function() {
-            cancelAnimationFrame(id);
+            clearInterval(intervalId);
         }, 1000);
-
-        function animate() {
-            id = requestAnimationFrame(function() {
-                window.scrollBy(0, 15);
-                animate();
-            });
-        }
-
     }
 
 })();
