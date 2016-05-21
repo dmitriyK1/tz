@@ -1,22 +1,26 @@
 ;(function init() {
-    var render = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
-    var tiles = document.querySelector('.tiles');
-    var preloader = document.querySelector('.overlay-loader');
+    var render       = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
+    var tiles        = document.querySelector('.tiles');
+    var preloader    = document.querySelector('.overlay-loader');
     var MOBILE_WIDTH = 1150;
+    var isDesktop    = checkIsDesktop();
 
 
     addHandlers();
 
+
     function addHandlers() {
-        var load = document.getElementById('load');
-        var toggle = document.getElementById('toggle');
+        var load                    = document.getElementById('load');
+        var toggle                  = document.getElementById('toggle');
         var onWindowScrollThrottled = _.throttle(onWindowScroll, 400, { leading: true });
+        var checkIsDesktopThrottled = _.throttle(checkIsDesktop, 400);
 
         load.addEventListener('click', onLoadClick);
         toggle.addEventListener('click', onToggleClick);
         window.addEventListener('scroll', onWindowScrollThrottled);
         window.addEventListener('mousewheel', onWindowScrollThrottled);
         window.addEventListener('DOMMouseScroll', onWindowScrollThrottled);
+        window.addEventListener('resize', checkIsDesktopThrottled);
 
         function onLoadClick() {
             appendTiles();
@@ -73,12 +77,28 @@
 
             xhr.onloadend = function() {
                 if (xhr.status !== 404) return;
-
                 reject(new Error('404'));
             };
 
             xhr.send();
         });
+    }
+
+    function scrollToBottom() {
+        if (!isDesktop) return;
+
+        var intervalId = setInterval(function() {
+            window.scrollBy(0, 15);
+        }, 1000 / 60);
+
+        setTimeout(function() {
+            clearInterval(intervalId);
+        }, 1000);
+    }
+
+    function checkIsDesktop() {
+        console.log('fired');
+        return document.body.clientWidth > MOBILE_WIDTH;
     }
 
     function isOnScreen(elm) {
@@ -92,7 +112,7 @@
             var test = elm,
                 top = 0;
 
-            while (!!test && test.tagName.toLowerCase() !== "body") {
+            while (!!test && test.tagName.toLowerCase() !== 'body') {
                 top += test.offsetTop;
                 test = test.offsetParent;
             }
@@ -118,18 +138,6 @@
             }
             return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
         }
-    }
-
-    function scrollToBottom() {
-        if (document.body.clientWidth < MOBILE_WIDTH) return;
-
-        var intervalId = setInterval(function() {
-            window.scrollBy(0, 15);
-        }, 1000/60);
-
-        setTimeout(function() {
-            clearInterval(intervalId);
-        }, 1000);
     }
 
 })();
