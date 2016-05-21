@@ -2,7 +2,6 @@
     var render       = _.template(document.getElementById('tile-template').innerHTML, { variable: 'data' });
     var tiles        = document.querySelector('.tiles');
     var preloader    = document.querySelector('.overlay-loader');
-    var MOBILE_WIDTH = 1150;
     var isDesktop    = helper.checkIsDesktop();
 
     addHandlers();

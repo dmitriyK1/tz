@@ -1,4 +1,6 @@
 ;(function() {
+    var MOBILE_WIDTH = 1150;
+
     window.helper = {};
 
     helper.scrollToBottom = function() {
