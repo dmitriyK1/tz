@@ -6,6 +6,7 @@
     var isDesktop;
 
     addHandlers();
+    checkIsDesktop();
 
     function addHandlers() {
         var load                    = document.getElementById('load');
