@@ -3,10 +3,9 @@
     var tiles        = document.querySelector('.tiles');
     var preloader    = document.querySelector('.overlay-loader');
     var MOBILE_WIDTH = 1150;
-    var isDesktop;
+    var isDesktop = checkIsDesktop();
 
     addHandlers();
-    checkIsDesktop();
 
     function addHandlers() {
         var load                    = document.getElementById('load');
@@ -99,8 +98,8 @@
 
     function checkIsDesktop() {
         var temp = document.documentElement.clientWidth > MOBILE_WIDTH;
-        console.log(temp)
         isDesktop = temp;
+        return temp;
     }
 
     function isOnScreen(elm) {
