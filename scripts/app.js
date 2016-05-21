@@ -3,7 +3,7 @@
     var tiles        = document.querySelector('.tiles');
     var preloader    = document.querySelector('.overlay-loader');
     var MOBILE_WIDTH = 1150;
-    var isDesktop    = checkIsDesktop();
+    var isDesktop    = helper.checkIsDesktop();
 
     addHandlers();
 
@@ -22,7 +22,7 @@
 
         function onLoadClick() {
             appendTiles();
-            scrollToBottom();
+            helper.scrollToBottom();
         }
 
         function onToggleClick() {
@@ -33,7 +33,7 @@
 
         function onWindowScroll(e) {
             if (preloader.classList.contains('hidden')) return;
-            if (!isOnScreen(preloader)) return;
+            if (!helper.isOnScreen(preloader)) return;
 
             setTimeout(function() {
                 appendTiles();
@@ -41,7 +41,7 @@
         }
 
         function onWindowResize() {
-            checkIsDesktop();
+            helper.checkIsDesktop();
         }
     }
 
@@ -82,61 +82,6 @@
 
             xhr.send();
         });
-    }
-
-    function scrollToBottom() {
-        if (!isDesktop) return;
-
-        var intervalId = setInterval(function() {
-            window.scrollBy(0, 15);
-        }, 1000 / 60);
-
-        setTimeout(function() {
-            clearInterval(intervalId);
-        }, 1000);
-    }
-
-    function checkIsDesktop() {
-        return isDesktop = document.documentElement.clientWidth > MOBILE_WIDTH;
-    }
-
-    function isOnScreen(elm) {
-        var vpH = viewPortHeight(),
-            st = scrollY(),
-            y = posY(elm);
-
-        return (y < (vpH + st));
-
-        function posY(elm) {
-            var test = elm,
-                top = 0;
-
-            while (!!test && test.tagName.toLowerCase() !== 'body') {
-                top += test.offsetTop;
-                test = test.offsetParent;
-            }
-
-            return top;
-        }
-
-        function viewPortHeight() {
-            var de = document.documentElement;
-
-            if (!!window.innerWidth) {
-                return window.innerHeight;
-            } else if (de && !isNaN(de.clientHeight)) {
-                return de.clientHeight;
-            }
-
-            return 0;
-        }
-
-        function scrollY() {
-            if (window.pageYOffset) {
-                return window.pageYOffset;
-            }
-            return Math.max(document.documentElement.scrollTop, document.body.scrollTop);
-        }
     }
 
 })();
