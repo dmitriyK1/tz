@@ -5,6 +5,8 @@
     var isDesktop    = checkIsDesktop();
     var MOBILE_WIDTH = 1150;
 
+    console.log(isDesktop);
+
     addHandlers();
 
     function addHandlers() {
