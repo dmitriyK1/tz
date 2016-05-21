@@ -99,7 +99,7 @@
     }
 
     function checkIsDesktop() {
-        return isDesktop = document.body.clientWidth > MOBILE_WIDTH;
+        return (isDesktop = document.documentElement.clientWidth > MOBILE_WIDTH);
     }
 
     function isOnScreen(elm) {
