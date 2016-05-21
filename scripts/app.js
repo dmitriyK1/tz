@@ -5,22 +5,20 @@
     var MOBILE_WIDTH = 1150;
     var isDesktop;
 
-
     addHandlers();
-
 
     function addHandlers() {
         var load                    = document.getElementById('load');
         var toggle                  = document.getElementById('toggle');
         var onWindowScrollThrottled = _.throttle(onWindowScroll, 400, { leading: true });
-        var checkIsDesktopThrottled = _.throttle(checkIsDesktop, 400);
+        var onWindowResizeThrottled = _.throttle(onWindowResize, 400);
 
         load.addEventListener('click', onLoadClick);
         toggle.addEventListener('click', onToggleClick);
         window.addEventListener('scroll', onWindowScrollThrottled);
         window.addEventListener('mousewheel', onWindowScrollThrottled);
         window.addEventListener('DOMMouseScroll', onWindowScrollThrottled);
-        window.addEventListener('resize', checkIsDesktopThrottled);
+        window.addEventListener('resize', onWindowResizeThrottled);
 
         function onLoadClick() {
             appendTiles();
@@ -33,21 +31,6 @@
             preloader.classList.toggle('hidden');
         }
 
-        function appendTiles() {
-            loadTiles()
-                .then(onTilesLoad)
-                .catch(onTilesLoadError);
-
-            function onTilesLoad(data) {
-                var compiledHtml = render(data);
-                tiles.insertAdjacentHTML('beforeEnd', compiledHtml);
-            }
-
-            function onTilesLoadError(error) {
-                console.log(error.message);
-            }
-        }
-
         function onWindowScroll(e) {
             if (preloader.classList.contains('hidden')) return;
             if (!isOnScreen(preloader)) return;
@@ -57,8 +40,25 @@
             }, 200);
         }
 
+        function onWindowResize() {
+            checkIsDesktop();
+        }
     }
 
+    function appendTiles() {
+        loadTiles()
+            .then(onTilesLoad)
+            .catch(onTilesLoadError);
+
+        function onTilesLoad(data) {
+            var compiledHtml = render(data);
+            tiles.insertAdjacentHTML('beforeEnd', compiledHtml);
+        }
+
+        function onTilesLoadError(error) {
+            console.log(error.message);
+        }
+    }
 
     function loadTiles() {
         return new Promise(function(resolve, reject) {
