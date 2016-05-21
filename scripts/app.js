@@ -5,8 +5,6 @@
     var isDesktop    = checkIsDesktop();
     var MOBILE_WIDTH = 1150;
 
-    console.log(isDesktop);
-
     addHandlers();
 
     function addHandlers() {
@@ -99,7 +97,10 @@
     }
 
     function checkIsDesktop() {
-        return (isDesktop = document.documentElement.clientWidth > MOBILE_WIDTH);
+        var temp = document.documentElement.clientWidth > MOBILE_WIDTH;
+        console.log(temp)
+        isDesktop = temp;
+        return isDesktop;
     }
 
     function isOnScreen(elm) {
