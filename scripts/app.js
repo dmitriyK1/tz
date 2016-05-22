@@ -21,7 +21,7 @@
 
         function onLoadClick() {
             appendTiles();
-            helper.scrollToBottom();
+            helper.scrollToBottom(isDesktop);
         }
 
         function onToggleClick() {
@@ -40,7 +40,7 @@
         }
 
         function onWindowResize() {
-            helper.checkIsDesktop();
+            isDesktop = helper.checkIsDesktop();
         }
     }
 

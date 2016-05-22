@@ -3,7 +3,7 @@
 
     window.helper = {};
 
-    helper.scrollToBottom = function() {
+    helper.scrollToBottom = function(isDesktop) {
         if (!isDesktop) return;
 
         var intervalId = setInterval(function() {
@@ -16,7 +16,7 @@
     };
 
     helper.checkIsDesktop = function() {
-        return isDesktop = document.documentElement.clientWidth > MOBILE_WIDTH;
+        return document.documentElement.clientWidth > MOBILE_WIDTH;
     };
 
     helper.isOnScreen = function(elm) {
